@@ -72,19 +72,34 @@ insert into tbl_alunos(cod_turma, cod_aluno, nome_aluno, cpf, rg, telefone_aluno
 ('2', '10', 'Nicolle Soares', '12345678900', '123456789', '00123456789', '98765432100', 'name.lastname@email.com', '2004-09-24');
 
 #8
-select  
-ta.nome_aluno, ta.telefone_aluno, ta.telefone_responsavel, ta.email,
-tt.sigla_turma, tt.nome_turma
-from tbl_alunos as ta
-inner join tbl_turma as tt
-on ta.cod_turma = tt.cod_turma
+create view listagem_alunos_turma as
+	select  
+	ta.nome_aluno, ta.telefone_aluno, ta.telefone_responsavel, ta.email,
+	tt.sigla_turma, tt.nome_turma
+	from tbl_alunos as ta
+	inner join tbl_turma as tt
+	on ta.cod_turma = tt.cod_turma
 ;
 
 #9
+create view listagem_disciplina_turma as
 select
-td.sigla_disciplina,
-tt.sigla_turma, tt.nome_turma
-from tbl_disciplinas as td
-inner join tbl_turma as tt
-on td.cod_turma = tt.cod_turma
+	td.sigla_disciplina,
+	tt.sigla_turma, tt.nome_turma
+	from tbl_disciplinas as td
+	inner join tbl_turma as tt
+	on td.cod_turma = tt.cod_turma
 ;
+
+#10
+create view listagem_alunos_turma_disciplina as
+	select
+	ta.nome_aluno, ta.telefone_aluno, ta.telefone_responsavel, ta.email,
+	tt.sigla_turma, tt.nome_turma,
+	td.sigla_disciplina
+	from tbl_alunos as ta
+	inner join tbl_turma as tt on tt.cod_turma = ta.cod_turma
+	inner join tbl_disciplinas as td on td.cod_turma = ta.cod_turma
+;
+
+
